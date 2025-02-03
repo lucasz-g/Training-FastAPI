@@ -3,7 +3,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from starlette.requests import Request
 from http import HTTPStatus
-from schemas import UserSchema, UserPublic, UserDB, UserList
+from backend.schemas import UserSchema, UserPublic, UserDB, UserList
 
 app = FastAPI()
 
@@ -68,38 +68,12 @@ async def delete_user(user_id: int):
     raise HTTPException(status_code=404, detail="User not found")
 
 
-# Páginas HTML
+from fastapi.middleware.cors import CORSMiddleware
 
-# Configurando o diretório de templates (diretório onde os arquivos HTML são armazenados)
-templates = Jinja2Templates(directory="templates")
-
-# Rota GET: Retorna a página de exibição de usuários no formato HTML
-# Esta rota serve o arquivo `get_users.html` com os dados necessários para exibir os usuários
-@app.get('/get_users.html', response_class=HTMLResponse)
-async def get_users_page(request: Request):
-    """
-    Retorna a página HTML de exibição de usuários.
-    
-    Parâmetros:
-        - request: A requisição para a renderização do template.
-    
-    Retorna:
-        - O HTML gerado a partir do template `get_users.html`, com os dados de usuários.
-    """
-    return templates.TemplateResponse("get_users.html", {"request": request})
-
-
-# Rota GET: Retorna o formulário HTML para a criação de um novo usuário
-# Esta rota serve o arquivo `create_user.html` com o formulário de cadastro
-@app.get("/create_user.html", response_class=HTMLResponse)
-async def create_user_page(request: Request):
-    """
-    Retorna a página HTML com o formulário de criação de usuário.
-    
-    Parâmetros:
-        - request: A requisição para a renderização do template.
-    
-    Retorna:
-        - O HTML gerado a partir do template `create_user.html`, que contém o formulário.
-    """
-    return templates.TemplateResponse("create_user.html", {"request": request})
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Permite todas as origens (ou substitua pelo domínio específico do frontend)
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)

@@ -1,5 +1,5 @@
 from sqlalchemy import select
-from models import User
+from backend.models import User
 
 
 def test_create_user(session):

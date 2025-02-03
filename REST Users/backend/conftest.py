@@ -3,8 +3,8 @@ from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session
 
-from main import app
-from models import table_registry
+from backend.main import app
+from backend.models import table_registry
 
 # Criar o banco de dados SQLite em memória
 engine = create_engine("sqlite:///:memory:", connect_args={"check_same_thread": False})
