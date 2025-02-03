@@ -1,0 +1,8 @@
+PUT http://127.0.0.1:8000/users/2
+Content-Type: application/json
+
+{
+  "username": "maria",
+  "email": "maria@gmail.com",
+  "password": "Senha123"
+}
