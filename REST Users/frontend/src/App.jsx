@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Button from "./components/Button/index.jsx"
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -23,6 +24,9 @@ function App() {
           </li>
         ))}
       </ul>
+      <div>
+        <Button conteudo='Criar usuário'/>
+      </div>
     </div>
   );
 }
